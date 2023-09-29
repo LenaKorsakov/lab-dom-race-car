@@ -63,15 +63,14 @@ class Car {
     const carBounding = this.element.getBoundingClientRect();
     const obsBounding = obstacle.element.getBoundingClientRect();
 
-    const isInX =
-      obsBounding.right > carBounding.left &&
-      obsBounding.left < carBounding.right;
-
-    const isInY =
-      // obsBounding.botom > carBounding.top &&
-      obsBounding.top < carBounding.bottom;
-
-    return isInX && isInY;
+    if (
+      carBounding.left < obsBounding.right &&
+      carBounding.right > obsBounding.left &&
+      carBounding.top < obsBounding.bottom &&
+      carBounding.bottom > obsBounding.top
+    ) {
+      return true;
+    } else return false;
   }
 }
 

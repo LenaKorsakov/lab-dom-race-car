@@ -72,6 +72,7 @@ class Game {
 
       if (this.player.didCollide(obstacle) && this.canBeHit) {
         console.log('Collision!');
+        obstacle.element.remove();
         this.lives--;
         this.livesElement.textContent = this.lives;
         this.canBeHit = false;
@@ -116,12 +117,30 @@ class Game {
 
   restart() {
     this.obstacles = [];
+    console.log('obstacles', this.obstacles);
     this.animationId = null;
     this.score = 0;
     this.lives = 3;
     this.gameIsOver = false;
 
-    // this.player.element.remove();
+    this.scoreElement.textContent = this.score;
+    this.livesElement.textContent = this.lives;
+
+    const imageElements = this.gameScreen.querySelectorAll('img');
+    for (const image of imageElements) {
+      image.remove();
+    }
+
+    this.player = new Car(
+      this.gameScreen,
+      this.width / 2 - this.playerWidth / 2,
+      this.height - this.playerHeight,
+      this.playerWidth,
+      this.playerHeight,
+      '../images/car.png'
+    );
+
+    this.gameLoop();
   }
 }
 
