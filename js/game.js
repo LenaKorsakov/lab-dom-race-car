@@ -70,17 +70,13 @@ class Game {
       obstacle.move();
       obstacle.updatePosition();
 
-      if (this.player.didCollide(obstacle) && this.canBeHit) {
+      if (this.player.didCollide(obstacle)) {
         console.log('Collision!');
         obstacle.element.remove();
         this.lives--;
         this.livesElement.textContent = this.lives;
-        this.canBeHit = false;
-
-        setTimeout(() => {
-          this.canBeHit = true;
-        }, 3000);
-
+      }
+      if (obstacle.top > this.height) {
         this.score++;
         this.scoreElement.textContent = this.score;
       }
